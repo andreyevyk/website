@@ -1,7 +1,7 @@
-import { CheckOutlined, ClockCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined, LinkOutlined, NotificationOutlined } from '@ant-design/icons';
+import { CheckOutlined, ClockCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined, LinkOutlined, NotificationOutlined, LikeOutlined, LikeFilled, DislikeOutlined, DislikeFilled } from '@ant-design/icons';
 import { Popover, Timeline } from 'antd';
 import moment from 'moment';
-import React from 'react';
+import React, {useState} from 'react';
 import { SectorIcon } from '../SectorIcon';
 import { Text } from '../Typography';
 import { eventWithStyle } from './Event.styles';
@@ -36,7 +36,9 @@ const EventItem = ({
 }) => {
   const { author } = event;
   const statusMessages = messages(status);
-
+  const [likeClicked, setLikeClicked] = useState(false);
+  const [dislikeClicked, setDislikeClicked] = useState(false);
+  
   return (
     <Timeline.Item
       className={status}
@@ -47,20 +49,37 @@ const EventItem = ({
         {city}
         {event?.region?.initial && ` - ${event?.region?.initial}`}
         {author && !hideAuthor && author?.name && (
-          <Popover
-            content={
-              <div style={{ textAlign: 'center' }}>
-                Evento criado por {author?.name}. <br />
-                <a>Clique aqui</a> para fazer parte de nossa equipe de
-                colaboradores.
-              </div>
-            }
-          >
-            <span className='info'>
-              <NotificationOutlined />
-              <span>{author.name}</span>
+          <>
+              <Popover
+              content={
+                <div style={{ textAlign: 'center' }}>
+                  Evento criado por {author?.name}. <br />
+                  <a>Clique aqui</a> para fazer parte de nossa equipe de
+                  colaboradores.
+                </div>
+              }
+            >
+              <span className='info'>
+                <NotificationOutlined />
+                <span>{author.name}</span>
+              </span>
+            </Popover>
+            <span className='actions'>
+              <a onClick={() => {
+                  dislikeClicked && setDislikeClicked(!dislikeClicked);
+                  setLikeClicked(!likeClicked)}
+                }>
+                {likeClicked ? <LikeFilled className='like' /> : <LikeOutlined /> }
+              </a>
+              <a onClick={ () => {
+                  likeClicked && setLikeClicked(!likeClicked);
+                  setDislikeClicked(!dislikeClicked)
+                }
+              }>
+                {dislikeClicked ? <DislikeFilled className='dislike' /> : <DislikeOutlined /> }
+              </a>
             </span>
-          </Popover>
+          </>
         )}
       </div>
       <div className='meta'>

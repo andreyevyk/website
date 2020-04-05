@@ -20,6 +20,22 @@ const styles = ({ scroll = true, maxHeight = '700px', theme }) => css`
         margin-left: 10px;
         font-weight: lighter;
       }
+      .actions{
+        margin-right: 0;
+      }
+      .actions > :first-child {
+        margin-right: 7px
+      }      
+      .actions a {
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.65) !important;
+      }
+      .actions .like {
+        color: rgba(6,158,81) !important;
+      }
+      .actions .dislike {
+        color: rgba(237,50,81) !important;
+      }
     }
 
     .meta {
@@ -38,9 +54,10 @@ const styles = ({ scroll = true, maxHeight = '700px', theme }) => css`
       }
 
       .anticon {
-        margin-right: 4px;
+        margin-right: 4px;        
       }
-    }
+
+    }    
 
     .ant-timeline-item-head .anticon {
       font-size: 18px;
