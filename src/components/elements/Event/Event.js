@@ -1,11 +1,11 @@
-import { CheckOutlined, ClockCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined, LinkOutlined, NotificationOutlined, LikeOutlined, LikeFilled, DislikeOutlined, DislikeFilled } from '@ant-design/icons';
+import { CheckOutlined, ClockCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined, LinkOutlined, NotificationOutlined} from '@ant-design/icons';
 import { Popover, Timeline } from 'antd';
 import moment from 'moment';
 import React, {useState} from 'react';
 import { SectorIcon } from '../SectorIcon';
 import { Text } from '../Typography';
 import { eventWithStyle } from './Event.styles';
-
+import { Feedback } from '../Feedback'
 function formatDate(date) {
   return moment(date).format('DD.MM.YY');
 }
@@ -36,8 +36,6 @@ const EventItem = ({
 }) => {
   const { author } = event;
   const statusMessages = messages(status);
-  const [likeClicked, setLikeClicked] = useState(false);
-  const [dislikeClicked, setDislikeClicked] = useState(false);
   
   return (
     <Timeline.Item
@@ -49,38 +47,22 @@ const EventItem = ({
         {city}
         {event?.region?.initial && ` - ${event?.region?.initial}`}
         {author && !hideAuthor && author?.name && (
-          <>
-              <Popover
-              content={
-                <div style={{ textAlign: 'center' }}>
-                  Evento criado por {author?.name}. <br />
-                  <a>Clique aqui</a> para fazer parte de nossa equipe de
-                  colaboradores.
-                </div>
-              }
-            >
-              <span className='info'>
-                <NotificationOutlined />
-                <span>{author.name}</span>
-              </span>
-            </Popover>
-            <span className='actions'>
-              <a onClick={() => {
-                  dislikeClicked && setDislikeClicked(!dislikeClicked);
-                  setLikeClicked(!likeClicked)}
-                }>
-                {likeClicked ? <LikeFilled className='like' /> : <LikeOutlined /> }
-              </a>
-              <a onClick={ () => {
-                  likeClicked && setLikeClicked(!likeClicked);
-                  setDislikeClicked(!dislikeClicked)
-                }
-              }>
-                {dislikeClicked ? <DislikeFilled className='dislike' /> : <DislikeOutlined /> }
-              </a>
+          <Popover
+            content={
+              <div style={{ textAlign: 'center' }}>
+                Evento criado por {author?.name}. <br />
+                <a>Clique aqui</a> para fazer parte de nossa equipe de
+                colaboradores.
+              </div>
+            }
+          >
+            <span className='info'>
+              <NotificationOutlined />
+              <span>{author.name}</span>
             </span>
-          </>
+          </Popover>
         )}
+        <Feedback />
       </div>
       <div className='meta'>
         <Popover content={<span style={{ textAlign: 'center' }}>{title}</span>}>
@@ -111,7 +93,7 @@ const EventItem = ({
       </div>
       <Text>{description}</Text>
       {event.source?.link && (
-        <a href={event.source.link} target='__blank' alt={event.source.source}>
+        <a href={event.source.link} target='__blank' alt={event.source.source} className="ver-mais">
           Ver mais
         </a>
       )}

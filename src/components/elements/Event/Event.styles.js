@@ -16,26 +16,11 @@ const styles = ({ scroll = true, maxHeight = '700px', theme }) => css`
       overflow-y: auto;
     `}
     .city {
+      padding-top: 2px;
       .info {
         margin-left: 10px;
         font-weight: lighter;
-      }
-      .actions{
-        margin-right: 0;
-      }
-      .actions > :first-child {
-        margin-right: 7px
       }      
-      .actions a {
-        cursor: pointer;
-        color: rgba(0, 0, 0, 0.65) !important;
-      }
-      .actions .like {
-        color: rgba(6,158,81) !important;
-      }
-      .actions .dislike {
-        color: rgba(237,50,81) !important;
-      }
     }
 
     .meta {
@@ -79,7 +64,7 @@ const styles = ({ scroll = true, maxHeight = '700px', theme }) => css`
       margin-left: 25px;
     }
 
-    a {
+    a.ver-mais {
       color: ${theme.colors.primary.default} !important;
       font-weight: 300;
     }
